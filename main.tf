@@ -41,5 +41,13 @@ module "aviatrix_controller" {
   subnet            = module.vpc.public_subnets[0]
   keypair           = aws_key_pair.aviatrix_controller.key_name
   ec2role           = module.aviatrix_iam_roles.aviatrix-role-ec2-name
-  incoming_ssl_cidr = [var.cidr]
+  incoming_ssl_cidr = [var.cidr, "0.0.0.0/0"]
+}
+
+output "controller_private_ip" {
+  value = module.aviatrix_controller.private_ip
+}
+
+output "controller_public_ip" {
+  value = module.aviatrix_controller.public_ip
 }

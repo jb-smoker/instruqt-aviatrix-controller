@@ -35,9 +35,10 @@ module "aviatrix_iam_roles" {
 }
 
 module "aviatrix_controller" {
-  source  = "github.com/AviatrixSystems/terraform-modules.git//aviatrix-controller-build?ref=terraform_0.14"
-  vpc     = module.vpc.vpc_id
-  subnet  = module.vpc.public_subnets[0]
-  keypair = aws_key_pair.aviatrix_controller.key_name
-  ec2role = module.aviatrix_iam_roles.aviatrix-role-ec2-name
+  source            = "github.com/AviatrixSystems/terraform-modules.git//aviatrix-controller-build?ref=terraform_0.14"
+  vpc               = module.vpc.vpc_id
+  subnet            = module.vpc.public_subnets[0]
+  keypair           = aws_key_pair.aviatrix_controller.key_name
+  ec2role           = module.aviatrix_iam_roles.aviatrix-role-ec2-name
+  incoming_ssl_cidr = var.cidr
 }

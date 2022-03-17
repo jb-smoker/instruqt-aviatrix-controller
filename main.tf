@@ -45,9 +45,22 @@ module "aviatrix_controller" {
 }
 
 output "controller_private_ip" {
-  value = module.aviatrix_controller.private_ip
+  value       = module.aviatrix_controller.private_ip
+  description = "Aviatrix controller private ip"
 }
 
 output "controller_public_ip" {
-  value = module.aviatrix_controller.public_ip
+  value       = module.aviatrix_controller.public_ip
+  description = "Aviatrix controller private ip"
 }
+
+output "vpc_id" {
+  value       = module.vpc.vpc_id
+  description = "VPC where Aviatrix controller was built"
+}
+
+output "subnet_id" {
+  value       = module.vpc.public_subnets[0]
+  description = "Subnet where Aviatrix controller was built"
+}
+

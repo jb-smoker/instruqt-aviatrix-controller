@@ -17,7 +17,7 @@ resource "aws_iam_policy" "aviatrix_ec2poweroff" {
         "ec2:StartInstances",
         "ec2:StopInstances"
       ],
-      "Resource": "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:instance/${module.spoke_aws_us_east1.aviatrix_spoke_gateway.aws-us-east1-spoke1-agw.cloud_instance_id}"
+      "Resource": "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:instance/${module.spoke_aws_us_east1.spoke_gateway.cloud_instance_id}"
     },
     {
       "Sid": "VisualEditor1",

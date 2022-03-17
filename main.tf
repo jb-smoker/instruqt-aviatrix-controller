@@ -54,12 +54,12 @@ output "controller_public_ip" {
   description = "Aviatrix controller private ip"
 }
 
-output "vpc_id" {
+output "controller_vpc_id" {
   value       = module.vpc.vpc_id
   description = "VPC where Aviatrix controller was built"
 }
 
-output "subnet_id" {
+output "controller_subnet_id" {
   value       = module.vpc.public_subnets[0]
   description = "Subnet where Aviatrix controller was built"
 }

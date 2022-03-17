@@ -43,7 +43,7 @@ resource "aviatrix_rbac_group_user_attachment" "student" {
 
 resource "aviatrix_vpc" "aws-us-east2-transit" {
   cloud_type           = 1
-  account_name         = module.aviatrix_controller_accounts.aws_account_name
+  account_name         = "aws-account"
   region               = var.aws_region-2
   name                 = "aws-us-east2-transit"
   cidr                 = "10.0.10.0/23"
@@ -53,7 +53,7 @@ resource "aviatrix_vpc" "aws-us-east2-transit" {
 
 resource "aviatrix_vpc" "aws-us-east2-spoke1" {
   cloud_type           = 1
-  account_name         = module.aviatrix_controller_accounts.aws_account_name
+  account_name         = "aws-account"
   aviatrix_transit_vpc = false
   aviatrix_firenet_vpc = false
   name                 = "aws-us-east2-spoke1"
@@ -67,7 +67,7 @@ module "transit_azure_us_west" {
   source  = "terraform-aviatrix-modules/mc-transit/aviatrix"
   version = "1.1.0"
 
-  account                = module.aviatrix_controller_accounts.azure_account_name
+  account                = "azure-account"
   az_support             = false
   cidr                   = "192.168.10.0/23"
   cloud                  = "Azure"
@@ -83,7 +83,7 @@ module "transit_azure_us_west" {
 #   source  = "terraform-aviatrix-modules/mc-transit/aviatrix"
 #   version = "1.1.0"
 
-#   account       = module.aviatrix_controller_accounts.gcp_account_name
+#   account       = "gcp-account"
 #   cidr          = "172.16.10.0/23"
 #   cloud         = "GCP"
 #   ha_gw         = true
@@ -97,7 +97,7 @@ module "transit_aws_us_east1" {
   source  = "terraform-aviatrix-modules/mc-transit/aviatrix"
   version = "1.1.0"
 
-  account       = module.aviatrix_controller_accounts.aws_account_name
+  account       = "aws-account"
   cidr          = "10.0.20.0/23"
   cloud         = "AWS"
   ha_gw         = true
@@ -112,7 +112,7 @@ module "spoke_aws_us_east1" {
   source  = "terraform-aviatrix-modules/mc-spoke/aviatrix"
   version = "1.1.0"
 
-  account       = module.aviatrix_controller_accounts.aws_account_name
+  account       = "aws-account"
   attached      = false
   cidr          = "10.0.12.0/23"
   cloud         = "AWS"
@@ -131,7 +131,7 @@ resource "azurerm_resource_group" "az-test-rg" {
 
 resource "aviatrix_vpc" "spoke_azure_us_west_1" {
   cloud_type           = 8
-  account_name         = module.aviatrix_controller_accounts.azure_account_name
+  account_name         = "azure-account"
   aviatrix_transit_vpc = false
   aviatrix_firenet_vpc = false
   name                 = "azure-us-west-spoke1-agw"
@@ -154,7 +154,7 @@ module "spoke_azure_us_west_2" {
   region         = var.az_region
   az_support     = false
   resource_group = azurerm_resource_group.az-spoke2-rg.name
-  account        = module.aviatrix_controller_accounts.azure_account_name
+  account        = "azure-account"
   ha_gw          = false
   instance_size  = "Standard_B2s"
   single_az_ha   = false
@@ -512,38 +512,38 @@ resource "aws_instance" "aws-us-east1-spoke1-test2" {
 #   }
 # }
 
-resource "aws_security_group" "on-prem-partner1" {
-  provider = aws.east
-  name     = "on-prem-partner1"
-  vpc_id   = module.on-prem-partner1.vpc_id
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port   = 500
-    to_port     = 500
-    protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port   = 4500
-    to_port     = 4500
-    protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = {
-    Name = "on-prem-partner1"
-  }
-}
+# resource "aws_security_group" "on-prem-partner1" {
+#   provider = aws.east
+#   name     = "on-prem-partner1"
+#   vpc_id   = module.on-prem-partner1.vpc_id
+#   ingress {
+#     from_port   = 22
+#     to_port     = 22
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+#   ingress {
+#     from_port   = 500
+#     to_port     = 500
+#     protocol    = "udp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+#   ingress {
+#     from_port   = 4500
+#     to_port     = 4500
+#     protocol    = "udp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = -1
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+#   tags = {
+#     Name = "on-prem-partner1"
+#   }
+# }
 
 # ami id  ami-0b532148acf19dd16
 # the login credential refers csh.sh which includes user-data to allow admin login

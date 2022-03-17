@@ -17,7 +17,7 @@ resource "aws_iam_policy" "aviatrix_ec2poweroff" {
         "ec2:StartInstances",
         "ec2:StopInstances"
       ],
-      "Resource": "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:instance/${aviatrix_spoke_gateway.aws-us-east1-spoke1-agw.cloud_instance_id}"
+      "Resource": "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:instance/${module.spoke_aws_us_east1.aviatrix_spoke_gateway.aws-us-east1-spoke1-agw.cloud_instance_id}"
     },
     {
       "Sid": "VisualEditor1",
@@ -163,7 +163,7 @@ resource "aws_iam_policy_attachment" "aws_readonly" {
 resource "null_resource" "student_password" {
   provisioner "local-exec" {
     command     = <<-EOT
-      aws iam create-login-profile --user-name=${aws_iam_user.student.name} --password=${var.ace_student_password} --no-password-reset-required --profile ${terraform.workspace}
+      aws iam create-login-profile --user-name=${aws_iam_user.student.name} --password=${var.aviatrix_password} --no-password-reset-required --profile ${terraform.workspace}
     EOT
     interpreter = ["/bin/bash", "-c"]
   }

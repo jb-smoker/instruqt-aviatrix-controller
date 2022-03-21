@@ -18,8 +18,8 @@ module "aviatrix_controller_init" {
   public_ip           = data.terraform_remote_state.aviatrix_controller.outputs.controller_public_ip
   access_account_name = "aws-account"
   aws_account_id      = var.aws_account_id
-  vpc_id              = data.terraform_remote_state.aviatrix_controller.outputs.vpc_id
-  subnet_id           = data.terraform_remote_state.aviatrix_controller.outputs.subnet_id
+  vpc_id              = data.terraform_remote_state.aviatrix_controller.outputs.controller_vpc_id
+  subnet_id           = data.terraform_remote_state.aviatrix_controller.outputs.controller_subnet_id
 }
 
 output "lambda_result" {
